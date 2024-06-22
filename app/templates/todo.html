@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block nav %}
+<ul class="flex gap-5 mr-10">
+    <li class=""><a href="/todos/{{ todo.id }}/delete"><button class="text-2xl bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Удалить задачу</button></a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="flex justify-center text-2xl">
+    <div class="my-3 border-2 p-3 mx-3">
+        <h1>Задача №{{ todo.id }}</h1>
+        <p>Название: {{ todo.title }}</p>
+        <p>Описание:</p>
+        <p class="text-xl">{{ todo.description }}</p>
+        <p>Создано: {{ todo.created_at }}</p>
+        <p>Дедлайн: {{ todo.deadline }}</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=todolist
+    container_name: todolistdb
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+  web:
+    build:
+      context: .
+    container_name: todolistapi
+    depends_on:
+      - db
+    command: ["docker/app.sh"]
+    ports:
+      - 80:80
+    develop:
+      watch:
+        - path: /app
+          action: rebuild
+          target: app
+
+volumes:
+  postgres-db:
