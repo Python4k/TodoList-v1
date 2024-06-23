@@ -6,7 +6,7 @@
 
 {% block nav %}
 <ul class="flex gap-5 mr-10">
-    <li class=""><a href="/add"><button class="text-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добавить задачу</button></a></li>
+    <li class=""><button class="text-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="addTodo()">Добавить задачу</button></li>
 </ul>
 {% endblock %}
 
@@ -17,11 +17,35 @@
             <a href="/todos/{{ todo.id }}">
                 <p>Задача №{{ todo.id }}</p>
                 <p>Название: {{ todo.title }}</p>
-                <p>Описание: {{ todo.description }}</p>
                 <p>Создано: {{ todo.created_at }}</p>
                 <p>Дедлайн: {{ todo.deadline }}</p>
             </a>
         </div>
     {% endfor %}
 </div>
+<script>
+    async function addTodo() {
+        const url = '/api/todos/add';
+
+        try{
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({title: "Todo", description: "Description", deadline: "2024-06-22"})
+            });
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            const result = await response.json();
+            console.log('Success:', result);
+            window.location.href = `/todos/${result}`;
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Ошибка при добавлении задачи!');
+        }
+    }
+</script>
 {% endblock %}

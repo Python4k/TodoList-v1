@@ -39,17 +39,5 @@ async def todos_page(request: Request, todos=Depends(get_todos)):
 async def todo_page(request: Request, id: int, todo=Depends(get_todo_by_id)):
     return templates.TemplateResponse("todo.html", {"request": request, "todo": todo})
 
-@app.get("todos/add", response_class=HTMLResponse)
-async def add_todo_page(request: Request, todo=Depends(create_todo)):
-    pass
-
-@app.get("todos/{id}/update", response_class=HTMLResponse)
-async def update_todo_page(request: Request, id: int, todo=Depends(update_todo)):
-    pass
-
-@app.get("todos/{id}/delete", response_class=HTMLResponse)
-async def delete_todo_page(request: Request, id: int, todo=Depends(delete_todo)):
-    pass
-
 
 app.include_router(api)

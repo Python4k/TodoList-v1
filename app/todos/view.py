@@ -38,4 +38,3 @@ async def update_todo(id: int, todo: SchemaUpdateTodo):
 @router.delete("/delete/{id}" )
 async def delete_todo(id: int):
     await controller_delete_todo(id)
-    return {"deleted": True}

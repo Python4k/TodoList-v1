@@ -18,8 +18,11 @@ async def get_todo_by_id(id):
 async def create_todo(**kwargs):
     async with async_session() as session:
         query = insert(Todo).values(**kwargs)
-        await session.execute(query)
+        result = await session.execute(query)
+        id = result.inserted_primary_key[0]
         await session.commit()
+        return id
+
 
 async def update_todo(id: int, **kwargs):
     async with async_session() as session:

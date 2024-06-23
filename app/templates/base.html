@@ -7,7 +7,7 @@
     {% block head %}{% endblock %}
     <title>TodoList version 1</title>
 </head>
-<body>
+<body class="flex flex-col h-screen">
     <nav class="flex justify-between text-3xl my-3">
         <ul class="flex ml-10">
             <li><a href="/">Todo List v.1</a></li>
@@ -18,7 +18,7 @@
         </ul>
     </nav>
     <hr>
-    <div class="content">
+    <div class="content flex-grow">
         {% block content %}
         <div class="flex flex-col justify-center items-center text-2xl my-3 p-3 h-96">
             <h1 class="text-3xl">Добро пожаловать в TodoList</h1>
@@ -27,9 +27,37 @@
             <p>Но важно: у вас есть возможность вносить изменения в задачу</p>
             <p>Сделайте свою первую задачу!</p>
             <br>
-            <a href="/todos/add"><button class="text-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Добавить задачу</button></a>
+            <button class="text-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="addTodo()">Добавить задачу</button>
         </div>
         {% endblock %}
     </div>
+    <footer class="flex justify-center border-t border-gray-500 bg-gray-300">
+        <p class="p-3 text-2xl"><a href="https://github.com/python4k">@Python4k</a></p>
+    </footer>
+    <script>
+        async function addTodo() {
+            const url = '/api/todos/add';
+
+            try{
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({title: "Todo", description: "Description", deadline: "2024-06-22"})
+                });
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`);
+                }
+                const result = await response.json();
+                console.log('Success:', result);
+                window.location.href = `/todos/${result}`;
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Ошибка при добавлении задачи!');
+            }
+        }
+    </script>
 </body>
 </html>
