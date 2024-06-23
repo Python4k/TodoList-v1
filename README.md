@@ -11,6 +11,11 @@
 git clone https://github.com/Python4k/TodoList-v1.git
 ```
 
+Перейти в каталог
+```
+cd todolist-v1-main
+```
+
 Установить зависимости
 ```
 pip install -r requirements.txt
@@ -28,10 +33,15 @@ guvicorn app.run:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --
 
 ##
 
-### ~~Вариант 2~~ ( допиливаю )
+### Вариант 2
 Клонировать проект
 ```
 git clone https://github.com/Python4k/TodoList-v1.git
+```
+
+Перейти в каталог
+```
+cd todolist-v1-main
 ```
 
 Сбилдить проект через docker-compose
