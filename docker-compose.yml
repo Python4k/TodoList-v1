@@ -18,6 +18,8 @@ services:
     build:
       context: .
     container_name: todolistapi
+    env_file:
+      - .env
     depends_on:
       - db
     command: ["docker/app.sh"]

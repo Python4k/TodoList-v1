@@ -24,7 +24,7 @@ app = FastAPI(
         "url": "https://github.com/python4k",
     }
 )
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 templates = Jinja2Templates(directory="app/templates")
 
 @app.get("/", response_class=HTMLResponse)
